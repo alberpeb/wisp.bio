@@ -1,0 +1,58 @@
+{
+    "name": "John Doe",
+    "username": "johndoe",
+    "professional_qualities": ["influencer", "musician"],
+    "avatar": "https://i.pinimg.com/564x/0e/1c/f0/0e1cf00605082d11da6385459a3a1687.jpg",
+    "socials": [
+        {
+            "title": "instagram",
+            "href": "https://www.instagram.com/instagram"
+        },
+        {
+            "title": "twitter",
+            "href": "https://www.twitter.com/twitter"
+        },
+        {
+            "title": "facebook",
+            "href": "https://www.facebook.com/facebook"
+        },
+        {
+            "title": "youtube",
+            "href": "https://www.youtube.com/youtube"
+        },
+        {
+            "title": "spotify",
+            "href": "https://www.spotify.com/spotfy"
+        },
+        {
+            "title": "github",
+            "href": "https://www.gthub.com/github"
+        }
+    ],
+    "links": [
+        {
+            "title": "My personal site",
+            "href": "https://www.a.com",
+            "image": "https://cdn-icons-png.flaticon.com/512/1088/1088537.png"
+        },
+        {
+            "title": "just google it...",
+            "href": "https://www.b.com"
+        },
+        {
+            "title": "some link",
+            "href": "https://www.c.com",
+            "image": "https://cdn-icons-png.flaticon.com/512/1088/1088537.png"
+        },
+        {
+            "title": "another stuff",
+            "href": "https://www.d.com",
+            "image": "https://cdn-icons-png.flaticon.com/512/1088/1088537.png"
+        },
+        {
+            "title": "wow, check this out!",
+            "href": "https://www.e.com",
+            "image": "https://cdn-icons-png.flaticon.com/512/1088/1088537.png"
+        }
+    ]
+}
