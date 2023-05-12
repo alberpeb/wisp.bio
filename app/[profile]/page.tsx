@@ -53,6 +53,8 @@ function LinkCard({
 
 interface Data {
   name: string;
+  username: string;
+  professional_qualities: string[];
   avatar: string;
   links: Link[];
   socials: Social[];
