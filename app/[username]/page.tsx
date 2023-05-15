@@ -89,7 +89,7 @@ export default async function Profile() {
         height={96}
       />
       <h1 className="font-bold mt-1 text-2xl text-gray-700">{data.name}</h1>
-      <h1 className="font-bold mt-2 mb-2 text-base text-gray-400">/{data.username}</h1>
+      <h1 className="font-bold mt-2 mb-2 text-base text-gray-400">@{data.username}</h1>
       <h1 className="flex mt-2 mb-4">
         {data.professional_qualities.map((quality) => 
           (<div className='bg-gray-300 text-gray-100 mx-1 px-2 rounded-full'>{quality}</div>)
