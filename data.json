@@ -67,5 +67,11 @@
             "title": "Log In",
             "href": "http://localhost:3000/login"
         }
+    ],
+    "linksignin": [
+        {
+            "title": "Sign In",
+            "href": "http://localhost:3000/a"
+        }
     ]
 }
