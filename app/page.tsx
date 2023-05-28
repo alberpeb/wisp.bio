@@ -1,10 +1,4 @@
-const Navbar = () => {
-  return (
-    <nav>
-      <a href="/login">login</a>
-    </nav>
-  );
-};
+import { Navbar } from './Navbar';
 
 const Body = () => {
   return (
