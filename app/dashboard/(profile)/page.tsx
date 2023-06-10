@@ -1,13 +1,14 @@
 'use client'
 
 import React, { useState, useEffect } from 'react';
-import { ProfileProps, Social, Link } from '@types'
+import { ProfileProps, ShortLink, Link } from '@types'
 import AvatarEdit from './AvatarEdit';
+import ShortLinksEdit from './ShortLinksEdit';
+import { ShortLink } from '../../../types';
 
 export default function EditProfile({ profile }: ProfileProps) {
   const [name, setName] = useState<string>(profile.name);
   const [badges, setBadges] = useState<string[]>(profile.professional_qualities);
-  const [socialLinks, setSocialLinks] = useState<Social[]>(profile.socials);
   const [customLinks, setCustomLinks] = useState<Link[]>(profile.links);
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,7 +35,7 @@ export default function EditProfile({ profile }: ProfileProps) {
     //setCustomLinks([...customLinks, { text: '', link: '' }]);
   }
 
-  const handleDelete = (array: (Social | Link), index: number) => {
+  const handleDelete = (array: (ShortLink | Link), index: number) => {
     const updatedLinks = [...array];
     updatedLinks.splice(index, 1);
     setCustomLinks(updatedLinks);
@@ -88,22 +89,9 @@ export default function EditProfile({ profile }: ProfileProps) {
           />
         </div>
 
-        <div>
-          <h1>Short Links</h1>
-          {socialLinks.map((social, index) => {
-            return (
-              <div key={"shortLinkDiv" + index}>
-                <label htmlFor={'shortLink' + index}>Link</label>
-                <input
-                  type='text'
-                  name={'shortLink' + index}
-                  defaultValue={social.href}
-                  placeholder='ShortLink'
-                />
-              </div>
-            )
-          })}
-        </div>
+        <ShortLinksEdit
+          shortLinks={profile.shortLinks}
+        />
 
         <div>
           <h1>Custom Links</h1>

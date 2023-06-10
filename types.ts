@@ -5,7 +5,7 @@ module Props {
     professional_qualities: string[];
     avatar: string;
     welcome: string;
-    socials: Social[];
+    socials: ShortLink[];
     links: Link[];
     linklogin: Link[];
     linkloginin: Link[];
@@ -16,10 +16,10 @@ module Props {
     name: string;
     avatarURL: string;
   }
-}
 
-export interface Social {
-  href: string;
+  export interface ShortLink {
+    href: string;
+  }
 }
 
 export interface Link {
