@@ -1,16 +1,15 @@
 'use client'
 
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image'
 import { ShortLink } from '@types';
 
 export default function ShortLinksEdit({ shortLinks }: ShortLink) {
-    const [shortHorizontalIconLink, setshortHorizontalIconLink] = useState<ShortLink[]>(shortLinks);
+    const [shortLinksInput, setShortLinksInput] = useState<ShortLink[]>(shortLinks);
 
     return(
         <div>
           <h1>Short Links</h1>
-          {shortHorizontalIconLink.map((shortLink, index) => {
+          {shortLinksInput.map((shortLink, index) => {
             return (
               <div key={"shortLinkDiv" + index}>
                 <label htmlFor={'shortLink' + index}>Link</label>

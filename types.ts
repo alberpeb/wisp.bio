@@ -6,10 +6,10 @@ module Props {
     avatar: string;
     welcome: string;
     socials: ShortLink[];
-    links: Link[];
-    linklogin: Link[];
-    linkloginin: Link[];
-    linksignin: Link[];
+    customLinks: CustomLink[];
+    linklogin: CustomLink[];
+    linkloginin: CustomLink[];
+    linksignin: CustomLink[];
   };
 
   export interface AvatarProps {
@@ -20,10 +20,12 @@ module Props {
   export interface ShortLink {
     href: string;
   }
-}
 
-export interface Link {
-  title: string;
-  href: string;
-  image: string;
+  export interface CustomLink {
+    title: string;
+    href: string;
+    image: string;
+  }
+
+  export {};
 }
