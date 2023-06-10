@@ -1,14 +1,14 @@
 'use client'
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 import { ProfileProps } from '@types'
-import AvatarEdit from './AvatarEdit';
-import ShortLinksEdit from './ShortLinksEdit';
-import CustomLinksEdit from './CustomLinksEdit';
+import AvatarEdit from './AvatarEdit'
+import ShortLinksEdit from './ShortLinksEdit'
+import CustomLinksEdit from './CustomLinksEdit'
 
 export default function EditProfile({ profile }: ProfileProps) {
-  const [name, setName] = useState<string>(profile.name);
-  const [badges, setBadges] = useState<string[]>(profile.professional_qualities);
+  const [name, setName] = useState<string>(profile.name)
+  const [badges, setBadges] = useState<string[]>(profile.professional_qualities)
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     //setName(event.target.value);
@@ -24,10 +24,6 @@ export default function EditProfile({ profile }: ProfileProps) {
     //setSocialLinks([...socialLinks, '']);
   }
 
-  const handleAddCustomLink = () => {
-    //setCustomLinks([...customLinks, { text: '', link: '' }]);
-  }
-
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault()
     // Handle form submission here
@@ -37,39 +33,21 @@ export default function EditProfile({ profile }: ProfileProps) {
     <div>
       <h1>Dashboard</h1>
       <form>
-        
-        <AvatarEdit 
-          profileAvatar={profile.avatar}
-          profileName={profile.name}
-        />
+        <AvatarEdit profileAvatar={profile.avatar} profileName={profile.name} />
 
         <div>
           <label htmlFor='name'>Name</label>
-          <input 
-            type='text' 
-            name='name' 
-            defaultValue={name} 
-            placeholder='Name' 
-          />
+          <input type='text' name='name' defaultValue={name} placeholder='Name' />
         </div>
 
         <div>
           <label htmlFor='badges'>badges</label>
-          <input
-            type='text'
-            name='badges'
-            defaultValue={badges}
-            placeholder='Badges'
-          />
+          <input type='text' name='badges' defaultValue={badges} placeholder='Badges' />
         </div>
 
-        <ShortLinksEdit
-          shortLinks={profile.shortLinks}
-        />
+        <ShortLinksEdit shortLinks={profile.shortLinks} />
 
-        <CustomLinksEdit
-          customLinks={profile.customLinks}
-        />
+        <CustomLinksEdit customLinks={profile.customLinks} />
 
         <button type='submit'>Save</button>
       </form>
