@@ -1,33 +1,27 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
+import { useRouter } from "next/navigation";
 import { CustomLink } from '@types'
+
 
 export default function CustomLinksEdit({ customLinks }: CustomLink) {
   const [customLinksInputs, setCustomLinksInputs] = useState<CustomLink[]>(customLinks)
+  const router = useRouter()
 
-  const handleCustomLinkChange = (index: number, value: string) => {
-    //const updatedLinks = [...customLinks];
-    customLinksInputs[index] = value
-    setCustomLinksInputs(customLinksInputs)
-  }
-
-  const handleDeleteCustomLink = (array: CustomLink, index: number) => {
-    //const updatedLinks = [...array];
-    customLinksInputs.splice(index, 1)
-    setCustomLinksInputs(customLinksInputs)
+  const handleDeleteCustomLink = (index: number) => {
+    const update = customLinksInputs.filter((link, i) => i != index);
+    if(update.length == 0) {
+      const emptyCustomLink: CustomLink = {title: '', href: '', image: ''}
+      update.push(emptyCustomLink);
+    }
+    setCustomLinksInputs(update)
+    router.refresh()
   }
 
   const handleAddCustomLink = () => {
     setCustomLinksInputs([...customLinksInputs, { title: '', href: '' }])
   }
-
-  useEffect(() => {
-    // Triggered whenever the `links` state changes
-    // You can perform any necessary actions here
-    // For example, updating the user object or making API requests
-    console.log('Links updated:', customLinksInputs)
-  }, [customLinksInputs])
 
   return (
     <div>
@@ -35,12 +29,11 @@ export default function CustomLinksEdit({ customLinks }: CustomLink) {
       {customLinksInputs.map((customLink, index) => {
         return (
           <div key={'linkTitleDiv' + index}>
-            <label htmlFor={'linkTitle' + index}>Link</label>
+            <label htmlFor={'linkTitle' + index}>Link n° {index + 1}: </label>
             <input
               type='text'
               name={'linkTitle' + index}
-              value={customLink.title}
-              onChange={(e) => handleCustomLinkChange(index, e.target.value)}
+              defaultValue={customLink.title}
               placeholder='ShortLink'
             />
             <input
@@ -49,7 +42,7 @@ export default function CustomLinksEdit({ customLinks }: CustomLink) {
               defaultValue={customLink.href}
               placeholder='LinkHref'
             />
-            <button type='button' onClick={() => handleDeleteCustomLink(customLinks, index)}>
+            <button type='button' onClick={() => handleDeleteCustomLink(index)}>
               Delete
             </button>
           </div>
