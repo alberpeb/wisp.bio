@@ -1,10 +1,11 @@
 {
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
-      "@app/*": ["./app/*"],
-      "@types": ["./types.ts"],
-      "@components/*": ["./app/components/*"]
+      "@/data/*": ["data/*"],
+      "@/components/*": ["app/components/*"],
+      "@/profilePage/*": ["app/dashboard/(profile)/*"],
+      "@/styles/*": ["styles/*"],
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],

@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import * as dataJson from '../../data.json'
 import { redirect } from 'next/navigation'
-import { GitHubIcon, TwitterIcon, Default } from '../components/elements/socialIcons'
 
 export const dynamic = 'force-dynamic',
   runtime = 'edge'
