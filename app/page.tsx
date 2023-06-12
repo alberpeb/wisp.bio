@@ -1,4 +1,4 @@
-import Navbar from './Navbar'
+import Navbar from './Navbar';
 
 const Body = () => {
   return (
@@ -10,16 +10,16 @@ const Body = () => {
         want to share your digital footprint with the world, Wisp.bio is here to help
       </p>
     </div>
-  )
-}
+  );
+};
 
 const Footer = () => {
   return (
     <footer>
       <p>Copyright &copy; 2023</p>
     </footer>
-  )
-}
+  );
+};
 
 export default async function Landing() {
   return (
@@ -28,5 +28,5 @@ export default async function Landing() {
       <Body />
       <Footer />
     </div>
-  )
+  );
 }

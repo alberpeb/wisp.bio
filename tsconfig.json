@@ -5,7 +5,7 @@
       "@/data/*": ["data/*"],
       "@/components/*": ["app/components/*"],
       "@/profilePage/*": ["app/dashboard/(profile)/*"],
-      "@/styles/*": ["styles/*"],
+      "@/styles/*": ["styles/*"]
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
