@@ -1,28 +1,27 @@
-'use client'
+'use client';
 
-import React, { useState, useEffect } from 'react'
-import { useRouter } from "next/navigation";
-import { CustomLink } from '@/data/models'
-import { CustomLinkEditProps } from '@/data/props'
-
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { CustomLink } from '@/data/models';
+import { CustomLinkEditProps } from '@/data/props';
 
 export default function CustomLinksEdit({ customLinks }: CustomLinkEditProps) {
-  const [customLinksInputs, setCustomLinksInputs] = useState<CustomLink[]>(customLinks)
-  const router = useRouter()
+  const [customLinksInputs, setCustomLinksInputs] = useState<CustomLink[]>(customLinks);
+  const router = useRouter();
 
   const handleDeleteCustomLink = (index: number) => {
     const update = customLinksInputs.filter((link, i) => i != index);
-    if(update.length == 0) {
-      const emptyCustomLink: CustomLink = {title: '', href: '', image: ''}
+    if (update.length == 0) {
+      const emptyCustomLink: CustomLink = { title: '', href: '', image: '' };
       update.push(emptyCustomLink);
     }
-    setCustomLinksInputs(update)
-    router.refresh()
-  }
+    setCustomLinksInputs(update);
+    router.refresh();
+  };
 
   const handleAddCustomLink = () => {
-    setCustomLinksInputs([...customLinksInputs, { title: '', href: '' }])
-  }
+    setCustomLinksInputs([...customLinksInputs, { title: '', href: '' }]);
+  };
 
   return (
     <div>
@@ -32,26 +31,26 @@ export default function CustomLinksEdit({ customLinks }: CustomLinkEditProps) {
           <div key={'linkTitleDiv' + index}>
             <label htmlFor={'linkTitle' + index}>Link n° {index + 1}: </label>
             <input
-              type='text'
+              type="text"
               name={'linkTitle' + index}
               defaultValue={customLink.title}
-              placeholder='ShortLink'
+              placeholder="ShortLink"
             />
             <input
-              type='text'
+              type="text"
               name={'linkHref' + index}
               defaultValue={customLink.href}
-              placeholder='LinkHref'
+              placeholder="LinkHref"
             />
-            <button type='button' onClick={() => handleDeleteCustomLink(index)}>
+            <button type="button" onClick={() => handleDeleteCustomLink(index)}>
               Delete
             </button>
           </div>
-        )
+        );
       })}
-      <button type='button' onClick={handleAddCustomLink}>
+      <button type="button" onClick={handleAddCustomLink}>
         Add More
       </button>
     </div>
-  )
+  );
 }
