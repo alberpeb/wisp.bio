@@ -2,6 +2,7 @@ import Image from 'next/image'
 import * as dataJson from '../../data.json'
 import { redirect } from 'next/navigation'
 import { GitHubIcon, TwitterIcon, Default } from '../components/elements/socialIcons'
+import { ProfileProps } from '@types'
 
 export const dynamic = 'force-dynamic',
   runtime = 'edge'
@@ -43,17 +44,8 @@ function LinkCard({ href, title, image }: { href: string; title: string; image?:
   )
 }
 
-interface Data {
-  name: string
-}
-
-interface Link {
-  href: string
-  title: string
-}
-
 export default async function Profile() {
-  const data: Data | undefined = dataJson
+  const data: ProfileProps | undefined = dataJson
 
   if (!dataJson) {
     redirect('https://linktr.ee/')
