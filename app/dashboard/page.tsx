@@ -1,5 +1,5 @@
 import * as data from '../../data.json'
-import EditProfile from '@/profilePage/page'
+import EditProfile from '@/profilePage/EditProfile'
 import { Profile } from '@/data/models'
 
 export default async function Dashboard() {

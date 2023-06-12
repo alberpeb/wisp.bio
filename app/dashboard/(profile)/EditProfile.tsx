@@ -1,11 +1,10 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
-import { Profile } from '@/data/models'
+import React, { useState } from 'react'
 import { ProfileComponentProps } from '@/data/props'
-import AvatarEdit from './AvatarEdit'
-import ShortLinksEdit from './ShortLinksEdit'
-import CustomLinksEdit from './CustomLinksEdit'
+import AvatarEdit from '@/profilePage/AvatarEdit'
+import ShortLinksEdit from '@/profilePage/ShortLinksEdit'
+import CustomLinksEdit from '@/profilePage/CustomLinksEdit'
 
 export default function EditProfile({ profile }: ProfileComponentProps) {
   const [name, setName] = useState<string>(profile.name)
