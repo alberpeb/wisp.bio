@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect } from 'react'
 import { useRouter } from "next/navigation";
-import { CustomLink } from '@/models/models'
-import { CustomLinkEditProps } from '@/models/props'
+import { CustomLink } from '@/data/models'
+import { CustomLinkEditProps } from '@/data/props'
 
 
 export default function CustomLinksEdit({ customLinks }: CustomLinkEditProps) {

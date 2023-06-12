@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect } from 'react'
 import { useRouter } from "next/navigation";
-import { ShortLink } from '@/models/models'
-import { ShortLinkEditProps } from '@/models/props'
+import { ShortLink } from '@/data/models'
+import { ShortLinkEditProps } from '@/data/props'
 
 export default function ShortLinksEdit({ shortLinks }: ShortLinkEditProps) {
   const [shortLinksInput, setShortLinksInput] = useState<ShortLink[]>(shortLinks)

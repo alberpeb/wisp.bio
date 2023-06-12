@@ -2,8 +2,8 @@ import Image from 'next/image'
 import * as dataJson from '../../data.json'
 import { redirect } from 'next/navigation'
 import { GitHubIcon, TwitterIcon, Default } from '../components/elements/socialIcons'
-import { Profile, ShortLink } from '@/models/models'
-import { LinkCardComponentProps } from '@/models/props'
+import { Profile, ShortLink } from '@/data/models'
+import { LinkCardComponentProps } from '@/data/props'
 
 export const dynamic = 'force-dynamic',
   runtime = 'edge'

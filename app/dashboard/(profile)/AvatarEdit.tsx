@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
-import { Avatar } from '@/models/models'
-import { AvatarEditProps } from '@/models/props'
+import { Avatar } from '@/data/models'
+import { AvatarEditProps } from '@/data/props'
 
 export default function AvatarEdit({ avatar, name }: AvatarEditProps) {
   const [avatarURL, setAvatarURL] = useState<string>(avatar)

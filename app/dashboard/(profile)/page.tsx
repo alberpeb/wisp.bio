@@ -1,8 +1,8 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { Profile } from '@/models/models'
-import { ProfileComponentProps } from '@/models/props'
+import { Profile } from '@/data/models'
+import { ProfileComponentProps } from '@/data/props'
 import AvatarEdit from './AvatarEdit'
 import ShortLinksEdit from './ShortLinksEdit'
 import CustomLinksEdit from './CustomLinksEdit'

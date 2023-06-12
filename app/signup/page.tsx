@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import * as dataJson from '../../data.json'
 import { redirect } from 'next/navigation'
-import { Profile } from '@/models/models'
+import { Profile } from '@/data/models'
 
 export const dynamic = 'force-dynamic',
   runtime = 'edge'

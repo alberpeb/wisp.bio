@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/models/*": ["models/*"],
+      "@/data/*": ["data/*"],
       "@/components/*": ["app/components/*"],
       "@/profilePage/*": ["app/dashboard/(profile)/*"]
     },

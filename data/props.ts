@@ -1,4 +1,4 @@
-import { Profile, CustomLink, ShortLink } from '@/models/models'
+import { Profile, CustomLink, ShortLink } from '@/data/models'
 
 export interface LinkCardComponentProps {
     key: number
