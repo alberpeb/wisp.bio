@@ -1,27 +1,29 @@
-export interface ProfileProps {
+export interface Profile {
   name: string
   username: string
   professional_qualities: string[]
   avatar: string
   welcome: string
-  socials: ShortLink[]
+  shortLinks: ShortLink[]
   customLinks: CustomLink[]
-  linklogin: CustomLink[]
-  linkloginin: CustomLink[]
-  linksignin: CustomLink[]
+  linklogin: ShortLink[]
+  linkloginin: ShortLink[]
+  linksignin: ShortLink[]
 }
 
-export interface AvatarProps {
+export interface Avatar {
   name: string
   avatarURL: string
 }
 
 export interface ShortLink {
+  title: string,
   href: string
 }
 
 export interface CustomLink {
   title: string
   href: string
-  image: string
+  image?: string
 }
+

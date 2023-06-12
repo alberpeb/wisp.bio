@@ -1,12 +1,13 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { ProfileProps } from '@types'
+import { Profile } from '@/models/models'
+import { ProfileComponentProps } from '@/models/props'
 import AvatarEdit from './AvatarEdit'
 import ShortLinksEdit from './ShortLinksEdit'
 import CustomLinksEdit from './CustomLinksEdit'
 
-export default function EditProfile({ profile }: ProfileProps) {
+export default function EditProfile({ profile }: ProfileComponentProps) {
   const [name, setName] = useState<string>(profile.name)
   const [badges, setBadges] = useState<string[]>(profile.professional_qualities)
 
@@ -33,7 +34,7 @@ export default function EditProfile({ profile }: ProfileProps) {
     <div>
       <h1>Dashboard</h1>
       <form>
-        <AvatarEdit profileAvatar={profile.avatar} profileName={profile.name} />
+        <AvatarEdit avatar={profile.avatar} name={profile.name} />
 
         <div>
           <label htmlFor='name'>Name</label>

@@ -2,22 +2,23 @@ import Image from 'next/image'
 import * as dataJson from '../../data.json'
 import { redirect } from 'next/navigation'
 import { GitHubIcon, TwitterIcon, Default } from '../components/elements/socialIcons'
-import { ProfileProps } from '@/types'
+import { Profile, ShortLink } from '@/models/models'
+import { LinkCardComponentProps } from '@/models/props'
 
 export const dynamic = 'force-dynamic',
   runtime = 'edge'
 
-function LinkCard({ href, title, image }: { href: string; title: string; image?: string }) {
+function LinkCard({ key, link }: LinkCardComponentProps) {
   return (
     <a
-      href={href}
+      href={link.href}
       target='_blank'
       rel='noopener noreferrer'
       className='flex items-center p-1 w-full rounded-md hover:scale-105 transition-all bg-gray-100 mb-3 max-w-3xl'
     >
       <div className='flex text-center w-full'>
         <div className='w-10 h-10'>
-          {image && (
+          {link.image && (
             <div className='m-auto'>
               <svg
                 width='40'
@@ -37,26 +38,15 @@ function LinkCard({ href, title, image }: { href: string; title: string; image?:
           )}
         </div>
         <h2 className='flex justify-center items-center font-semibold w-full text-gray-700 -ml-10'>
-          {title}
+          {link.title}
         </h2>
       </div>
     </a>
   )
 }
 
-interface Link {
-  href: string
-  title: string
-  image?: string
-}
-
-interface Social {
-  href: string
-  title: string
-}
-
-export default async function Profile() {
-  const data: ProfileProps | undefined = dataJson
+export default async function UserProfile() {
+  const data: Profile =  dataJson;
 
   if (!dataJson) {
     redirect('https://linktr.ee/')
@@ -81,10 +71,10 @@ export default async function Profile() {
       </h1>
 
       <div className='flex flex-row text-gray-700'>
-        {data.socials.map((social, index) => (
+        {data.shortLinks.map((social: ShortLink, index) => (
           <div className={'my-4 ' + (index > 0 ? 'ml-4' : '')}>
             <a
-              aria-label={`${social.title} link`}
+              aria-label={`${social.href} link`}
               key={social.href}
               href={social.href}
               target='_blank'
@@ -102,8 +92,8 @@ export default async function Profile() {
         ))}
       </div>
 
-      {data.links.map((link) => (
-        <LinkCard key={link.href} {...link} />
+      {data.customLinks.map((link, index) => (
+        <LinkCard key={index} link={link} />
       ))}
     </div>
   )

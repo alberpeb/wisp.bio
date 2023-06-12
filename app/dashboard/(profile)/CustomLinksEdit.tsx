@@ -2,10 +2,11 @@
 
 import React, { useState, useEffect } from 'react'
 import { useRouter } from "next/navigation";
-import { CustomLink } from '@types'
+import { CustomLink } from '@/models/models'
+import { CustomLinkEditProps } from '@/models/props'
 
 
-export default function CustomLinksEdit({ customLinks }: CustomLink) {
+export default function CustomLinksEdit({ customLinks }: CustomLinkEditProps) {
   const [customLinksInputs, setCustomLinksInputs] = useState<CustomLink[]>(customLinks)
   const router = useRouter()
 

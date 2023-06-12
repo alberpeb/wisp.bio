@@ -2,16 +2,17 @@
 
 import React, { useState, useEffect } from 'react'
 import { useRouter } from "next/navigation";
-import { ShortLink } from '@types'
+import { ShortLink } from '@/models/models'
+import { ShortLinkEditProps } from '@/models/props'
 
-export default function ShortLinksEdit({ shortLinks }: ShortLink) {
+export default function ShortLinksEdit({ shortLinks }: ShortLinkEditProps) {
   const [shortLinksInput, setShortLinksInput] = useState<ShortLink[]>(shortLinks)
   const router = useRouter()
 
   const handleDeleteCustomLink = (index: number) => {
     const update = shortLinksInput.filter((link, i) => i != index);
     if(update.length == 0) {
-      const emptyCustomLink: ShortLink = {title: '', href: '', image: ''}
+      const emptyCustomLink: ShortLink = {title: '', href: ''}
       update.push(emptyCustomLink);
     }
     setShortLinksInput(update)
