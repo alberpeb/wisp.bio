@@ -7,3 +7,5 @@ README.md
 docker
 .git
 .vscode
+.storybook
+stories
