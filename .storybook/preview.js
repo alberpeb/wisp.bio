@@ -1,17 +1,12 @@
-import '../styles/globals.css'
+import '../styles/globals.css';
 //import type { Preview } from '@storybook/react';
-import * as NextImage from "next/image";
+import * as NextImage from 'next/image';
 
 const OriginalNextImage = NextImage.default;
 
-Object.defineProperty(NextImage, "default", {
+Object.defineProperty(NextImage, 'default', {
   configurable: true,
-  value: (props) => (
-    <OriginalNextImage
-      {...props}
-      unoptimized
-    />
-  ),
+  value: (props) => <OriginalNextImage {...props} unoptimized />,
 });
 
 const preview = {
