@@ -6,11 +6,10 @@ Consider using a mariadb container. The following command is for downloading the
 docker run -p 127.0.0.1:3306:3306  --name mariadb -e MARIADB_ROOT_PASSWORD=Password123! -d mariadb:latest
 ```
 
-Then always run 
+Then always run
 
 ```bash
 docker start [CONTAINER_ID]
 ```
 
 (use "docker ps -a" to list all your local containers)
-
