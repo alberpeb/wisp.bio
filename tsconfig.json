@@ -3,6 +3,7 @@
     "baseUrl": ".",
     "paths": {
       "@/data/*": ["data/*"],
+      "@/lib/*": ["lib/*"],
       "@/components/*": ["components/*"],
       "@/profilePage/*": ["app/dashboard/(profile)/*"],
       "@/styles/*": ["styles/*"]
