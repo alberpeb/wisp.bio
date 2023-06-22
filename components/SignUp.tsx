@@ -2,34 +2,92 @@
 
 import Link from 'next/link';
 import Image from 'next/image'
+import { signIn } from "next-auth/react";
+import { ChangeEvent, useState } from "react";
 import InputText from '@/components/InputText';
 import Hr from './Hr';
 
-async function handleSubmit(event: any) {
-  event.preventDefault();
-
-  const data = {
-    username: String(event.target.username.value),
-    email: String(event.target.email.value),
-    password: String(event.target.password.value),
-    confirmpswd: String(event.target.confirmpswd.value),
-  };
-
-  if (data.password !== data.confirmpswd)
-    alert("passwords must match");
-}
 
 export default function SignUp() {
-  console.log("render times");
+  const [loading, setLoading] = useState(false);
+  const [formValues, setFormValues] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confirmpswd: "",
+  });
+  const [error, setError] = useState("");
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setLoading(true);
+    setFormValues({ username: "", email: "", password: "" ,confirmpswd: ""});
+
+    if (formValues.password !== formValues.confirmpswd)
+      alert("passwords fields must be equal");
+
+    try {
+      const res = await fetch("/api/register", {
+        method: "POST",
+        body: JSON.stringify(formValues),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      setLoading(false);
+      if (!res.ok) {
+        setError((await res.json()).message);
+        return;
+      }
+
+      signIn(undefined, { callbackUrl: "/" });
+    } catch (error: any) {
+      setLoading(false);
+      setError(error);
+    }
+  };
+
   return (
     <div className="container mt-40 mx-auto p-4 bg-white">
       <div className="w-full md:w-1/2 lg:w-1/3 mx-auto my-12">
         <h1 className="text-3xl font-bold">Register</h1>
         <form className="flex flex-col mt-4" onSubmit={handleSubmit}>
-          <InputText type="text" name="username" placeholder="username" minLength={5} maxLength={20} required />
-          <InputText type="email" name="email" placeholder="email" minLength={14} maxLength={40} required />
-          <InputText type="password" name="password" placeholder="password" minLength={8} maxLength={30} required />
-          <InputText type="password" name="confirmpswd" placeholder="confirm password" minLength={8} maxLength={30} required />
+          <InputText 
+            type="text" 
+            name="username" 
+            placeholder="username"
+            value={formValues.username}
+            minLength={5} 
+            maxLength={20} 
+            required 
+          />
+          <InputText 
+            type="email" 
+            name="email" 
+            placeholder="email"
+            value={formValues.email}
+            minLength={14} 
+            maxLength={40} 
+            required 
+          />
+          <InputText 
+            type="password" 
+            name="password" 
+            placeholder="password"
+            value={formValues.password}
+            minLength={8} 
+            maxLength={30} 
+            required 
+          />
+          <InputText 
+            type="password" 
+            name="confirmpswd" 
+            placeholder="confirm password" 
+            minLength={8} 
+            maxLength={30} 
+            required 
+          />
 
           <button
             type="submit"
