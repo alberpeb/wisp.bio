@@ -65,8 +65,9 @@ export default function SignUp() {
             type="text"
             {...register("username")}
             placeholder="username"
-            className={classNames("my-2 w-full rounded-md bg-gray-100 px-4 py-3 text-sm lowercase boder-2 border-red-700 ",// focus:bg-white focus:ring-0 focus:border-gray-500",
-              { "boder-2 border-red-700": errors.username },
+            className={classNames("my-2 w-full rounded-md bg-gray-100 px-4 py-3 text-sm lowercase ",
+              { "border-2 border-red-700" : errors.username },
+              { "border-transparent focus:bg-white focus:ring-0 focus:border-gray-500" : !errors.username }
             )}
           />
 
@@ -80,10 +81,10 @@ export default function SignUp() {
             type="text"
             {...register("email")}
             placeholder="email"
-            className={`my-2 w-full rounded-md border-transparent bg-gray-100 px-4 py-3 text-sm lowercase ${
-              errors.email && "border-red-700"
-            }
-            focus:border-gray-500 focus:bg-white focus:ring-0`}
+            className={classNames("my-2 w-full rounded-md bg-gray-100 px-4 py-3 text-sm lowercase ",
+              { "border-2 border-red-700" : errors.email },
+              { "border-transparent focus:bg-white focus:ring-0 focus:border-gray-500" : !errors.email }
+            )}
           />
           
           {errors.email && (
@@ -96,10 +97,10 @@ export default function SignUp() {
             type="text"
             {...register("password")}
             placeholder="password"
-            className={`my-2 w-full rounded-md border-transparent bg-gray-100 px-4 py-3 text-sm ${
-              errors.password && "border-red-700"
-            }
-            focus:border-gray-500 focus:bg-white focus:ring-0`}
+            className={classNames("my-2 w-full rounded-md bg-gray-100 px-4 py-3 text-sm lowercase ",
+              { "border-2 border-red-700" : errors.password },
+              { "border-transparent focus:bg-white focus:ring-0 focus:border-gray-500" : !errors.password }
+            )}
           />
           
           {errors.password && (
@@ -112,10 +113,10 @@ export default function SignUp() {
             type="text"
             {...register("confirmpswd")}
             placeholder="confirm your password"
-            className={`my-2 w-full rounded-md border-transparent bg-gray-100 px-4 py-3 text-sm ${
-              errors.confirmpswd && "border-red-700"
-            }
-            focus:border-gray-500 focus:bg-white focus:ring-0`}
+            className={classNames("my-2 w-full rounded-md bg-gray-100 px-4 py-3 text-sm lowercase ",
+              { "border-2 border-red-700" : errors.confirmpswd },
+              { "border-transparent focus:bg-white focus:ring-0 focus:border-gray-500" : !errors.confirmpswd }
+            )}
           />
           
           {errors.confirmpswd && (

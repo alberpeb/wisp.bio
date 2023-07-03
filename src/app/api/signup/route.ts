@@ -18,7 +18,6 @@ export async function POST(request: NextRequest) {
     userOk.password = await hash(userOk.password);
 
     const createdUser = createUser(userOk);
-    console.log("createdUser: ");
 
     return new NextResponse(JSON.stringify(userValidated), { 
      status: 201, 
@@ -27,7 +26,6 @@ export async function POST(request: NextRequest) {
   } catch (error: any) {
 
     if (error.code === "P2002") {
-      console.log("me voy por aquí")
       const dbError: InvalidUser = {success: false, value: error}
       return NextResponse.json(
         { error: { issues: [ {
