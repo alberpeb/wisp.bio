@@ -2,145 +2,127 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { signIn } from 'next-auth/react';
-import { ChangeEvent, useState } from 'react';
-//import InputText from '@/components/InputText';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from "@hookform/resolvers/zod";
+import classNames from 'classnames';
 import Hr from './Hr';
+import { UserSignupForm } from '@/data/models';
+import { UserSignup, userSignupValidationSchema } from '@/lib/validation';
+import { hash } from '@/lib/hashPass';
 
 export default function SignUp() {
-  const [loading, setLoading] = useState(false);
-  const [formValues, setFormValues] = useState({
-    username: '',
-    email: '',
-    password: '',
-    confirmpswd: '',
-  });
-  const [error, setError] = useState('');
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setLoading(true);
-    setFormValues({ username: '', email: '', password: '', confirmpswd: '' });
-
-    if (formValues.password !== formValues.confirmpswd) alert('passwords fields must be equal');
-
-    try {
-      /*const res = await fetch('/api/register', {
-        method: 'POST',
-        body: JSON.stringify(formValues),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      setLoading(false);
-      if (!res.ok) {
-        setError((await res.json()).message);
-        return;
-      }
-
-      signIn(undefined, { callbackUrl: '/' });*/
-    } catch (error: any) {
-      setLoading(false);
-      setError(error);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<UserSignup>({
+    resolver: zodResolver(userSignupValidationSchema),
+    defaultValues: {
+      username: "",
+      email: "",
+      password: "",
+      confirmpswd: ""
     }
-  }
+  });
 
-  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setFormValues({...formValues, [event.target.name]: event.target.value})
+  console.log(errors);
+
+  async function formSubmit(data: UserSignupForm) {
+    
+    try {
+      data.password = await hash(data.password);
+      //by now I will send hashed password if it already passed comparision
+      data.confirmpswd = data.password;
+
+      console.log(JSON.stringify(data))
+      const response = await fetch("/api/signup", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      if(!response.ok) {
+        console.log(response);
+        throw new Error('HTTP error! status: ' + response.status);
+      }
+      const responseData = await response.json();
+      console.log(responseData);
+    } catch(error: any) {
+      console.log(error);
+    }
+    //console.log("typeof response: ")
+    //console.log(typeof response);
   }
 
   return (
     <div className="container mx-auto mt-40 bg-white p-4">
       <div className="mx-auto my-12 w-full md:w-1/2 lg:w-1/3">
         <h1 className="text-3xl font-bold">Register</h1>
-        <form className="mt-4 flex flex-col" onSubmit={handleSubmit}>
-
-
-          {/*<InputText
-            type="text"
-            name="username"
-            placeholder="username"
-            value={formValues.username}
-            minLength={5}
-            maxLength={20}
-            required
-          />
-          <InputText
-            type="email"
-            name="email"
-            placeholder="email"
-            value={formValues.email}
-            minLength={14}
-            maxLength={40}
-            required
-          />
-          <InputText
-            type="password"
-            name="password"
-            placeholder="password"
-            value={formValues.password}
-            minLength={8}
-            maxLength={30}
-            required
-          />
-          <InputText
-            type="password"
-            name="confirmpswd"
-            placeholder="confirm password"
-            value={formValues.confirmpswd}
-            minLength={8}
-            maxLength={30}
-            required
-          />*/}
+        <form className="mt-4 flex flex-col" onSubmit={handleSubmit(formSubmit)}>
 
           <input
             type="text"
-            className="my-2 w-full rounded-md border-transparent bg-gray-100 px-4 py-3 text-sm focus:border-gray-500 focus:bg-white focus:ring-0"
-            name="username"
+            {...register("username")}
             placeholder="username"
-            value={formValues.username}
-            onChange={handleChange}
-            minLength={5}
-            maxLength={20}
-            required
+            className={classNames("my-2 w-full rounded-md bg-gray-100 px-4 py-3 text-sm lowercase boder-2 border-red-700 ",// focus:bg-white focus:ring-0 focus:border-gray-500",
+              { "boder-2 border-red-700": errors.username },
+            )}
           />
 
+          {errors.username && (
+            <p className="text-xs italic text-red-700 ml-1">
+              {errors.username?.message}
+            </p>
+          )}
+
           <input
-            type="email"
-            className="my-2 w-full rounded-md border-transparent bg-gray-100 px-4 py-3 text-sm focus:border-gray-500 focus:bg-white focus:ring-0"
-            name="email"
+            type="text"
+            {...register("email")}
             placeholder="email"
-            value={formValues.email}
-            onChange={handleChange}
-            minLength={14}
-            maxLength={40}
-            required
+            className={`my-2 w-full rounded-md border-transparent bg-gray-100 px-4 py-3 text-sm lowercase ${
+              errors.email && "border-red-700"
+            }
+            focus:border-gray-500 focus:bg-white focus:ring-0`}
           />
+          
+          {errors.email && (
+            <p className="text-xs italic text-red-700 ml-1">
+              {errors.email?.message}
+            </p>
+          )}
 
           <input
-            type="password"
-            className="my-2 w-full rounded-md border-transparent bg-gray-100 px-4 py-3 text-sm focus:border-gray-500 focus:bg-white focus:ring-0"
-            name="password"
+            type="text"
+            {...register("password")}
             placeholder="password"
-            value={formValues.password}
-            onChange={handleChange}
-            minLength={8}
-            maxLength={30}
-            required
+            className={`my-2 w-full rounded-md border-transparent bg-gray-100 px-4 py-3 text-sm ${
+              errors.password && "border-red-700"
+            }
+            focus:border-gray-500 focus:bg-white focus:ring-0`}
           />
+          
+          {errors.password && (
+            <p className="text-xs italic text-red-700 ml-1">
+              {errors.password?.message}
+            </p>
+          )}
 
           <input
-            type="password"
-            className="my-2 w-full rounded-md border-transparent bg-gray-100 px-4 py-3 text-sm focus:border-gray-500 focus:bg-white focus:ring-0"
-            name="confirmpswd"
-            placeholder="confirm password"
-            value={formValues.confirmpswd}
-            onChange={handleChange}
-            minLength={8}
-            maxLength={30}
-            required
+            type="text"
+            {...register("confirmpswd")}
+            placeholder="confirm your password"
+            className={`my-2 w-full rounded-md border-transparent bg-gray-100 px-4 py-3 text-sm ${
+              errors.confirmpswd && "border-red-700"
+            }
+            focus:border-gray-500 focus:bg-white focus:ring-0`}
           />
+          
+          {errors.confirmpswd && (
+            <p className="text-xs italic text-red-700 ml-1">
+              {errors.confirmpswd?.message}
+            </p>
+          )}
 
           <button
             type="submit"

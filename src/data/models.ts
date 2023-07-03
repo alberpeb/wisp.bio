@@ -26,3 +26,10 @@ export interface CustomLink {
   href: string;
   image?: string;
 }
+
+export type UserSignupForm = {
+  username: string;
+  email: string;
+  password: string;
+  confirmpswd: string;
+};

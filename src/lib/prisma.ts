@@ -1,26 +1,17 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from "@prisma/client";
 
 declare global {
   var prisma: PrismaClient | undefined;
 }
 
-export const prisma = global.prisma || new PrismaClient({ log: ['info'] });
-
-if (process.env.NODE_ENV !== 'production') {
-  global.prisma = prisma;
-}
-
-async function connectDB() {
-  try {
-    await prisma.$connect();
-    console.log('? Database connected successfully');
-  } catch (error) {
-    console.log(error);
-    await prisma.$disconnect();
-    process.exit(1);
-  } finally {
-    await prisma.$disconnect();
+//info await prisma.$connect(); for avoiding lazy connetion
+if (process.env.NODE_ENV === "production") {
+  prisma = new PrismaClient();
+} else {
+  if (!global.prisma) {
+    global.prisma = new PrismaClient();
   }
+  prisma = global.prisma;
 }
 
-export default connectDB;
+export default prisma;

@@ -6,7 +6,9 @@
       "@/lib/*": ["src/lib/*"],
       "@/components/*": ["src/components/*"],
       "@/profilePage/*": ["src/app/dashboard/(profile)/*"],
-      "@/styles/*": ["src/styles/*"]
+      "@/styles/*": ["src/styles/*"],
+      "@/providers/*": ["src/providers/*"],
+      "@/prisma/*": ["prisma/*"],
     },
     "target": "es5",
     "sourceMap": true,
@@ -29,6 +31,6 @@
       }
     ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/**/page.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }
