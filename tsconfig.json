@@ -2,12 +2,17 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/data/*": ["data/*"],
-      "@/components/*": ["components/*"],
-      "@/profilePage/*": ["app/dashboard/(profile)/*"],
-      "@/styles/*": ["styles/*"]
+      "@/data/*": ["src/data/*"],
+      "@/lib/*": ["src/lib/*"],
+      "@/services/*": ["src/services/*"],
+      "@/components/*": ["src/components/*"],
+      "@/profilePage/*": ["src/app/dashboard/(profile)/*"],
+      "@/styles/*": ["src/styles/*"],
+      "@/providers/*": ["src/providers/*"],
+      "@/prisma/*": ["prisma/*"],
     },
     "target": "es5",
+    "sourceMap": true,
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -27,6 +32,6 @@
       }
     ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/pagetsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }
