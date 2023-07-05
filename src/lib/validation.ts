@@ -1,4 +1,4 @@
-import { object, string, infer as zodInfer, ZodError } from "zod";
+import { object, string, infer as zodInfer, ZodError } from 'zod';
 //import { ZodError, fromZodError } from 'zod-validation-error';
 
 export const userSignupValidationSchema = object({

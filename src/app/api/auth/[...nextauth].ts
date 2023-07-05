@@ -1,6 +1,6 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import CredentialsProvider from "next-auth/providers/credentials";
-import NextAuth, { User } from "next-auth";
+import { NextApiRequest, NextApiResponse } from 'next';
+import CredentialsProvider from 'next-auth/providers/credentials';
+import NextAuth, { User } from 'next-auth';
 
 if (!process.env.NEXTAUTH_SECRET) {
   throw new Error("Please provide process.env.NEXTAUTH_SECRET");

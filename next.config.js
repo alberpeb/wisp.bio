@@ -3,6 +3,9 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
+  extends: [
+    'plugin:@next/next/recommended',
+  ],
   images: {
     domains: [
       'i.pinimg.com',
