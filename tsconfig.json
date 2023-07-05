@@ -4,6 +4,7 @@
     "paths": {
       "@/data/*": ["src/data/*"],
       "@/lib/*": ["src/lib/*"],
+      "@/services/*": ["src/services/*"],
       "@/components/*": ["src/components/*"],
       "@/profilePage/*": ["src/app/dashboard/(profile)/*"],
       "@/styles/*": ["src/styles/*"],

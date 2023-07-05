@@ -1,5 +1,5 @@
-import { object, string, infer as zodInfer } from "zod";
-import { ZodError, fromZodError } from 'zod-validation-error';
+import { object, string, infer as zodInfer, ZodError } from "zod";
+//import { ZodError, fromZodError } from 'zod-validation-error';
 
 export const userSignupValidationSchema = object({
     username:
@@ -35,8 +35,11 @@ export const userSignupValidationSchema = object({
 export const validateUserSignup = (inputs: UserSignup): SignupValidationUnion => {
     //return userSignupValidationSchema.parse();
     const validationResult = userSignupValidationSchema.safeParse(inputs)
-    if(!validationResult.success && validationResult.error.issues)
+
+    if(!validationResult.success && validationResult.error.issues) {
+        //return { success: false, value: fromZodError(validationResult.error)};
         return { success: false, value: validationResult.error };
+    }
     //return new { userSignupValidationSchema : UserSignup;
     return {success: true, value: inputs};
 };
@@ -44,10 +47,6 @@ export const validateUserSignup = (inputs: UserSignup): SignupValidationUnion =>
 export const objectContains = (errors: any, term: string): boolean => {
     return JSON.stringify(errors).includes(term);
   }
-
-export const handleValidationError = (errorDetails: ZodError) => {
-    return fromZodError(errorDetails)
-}
 
 export type UserSignup = zodInfer<typeof userSignupValidationSchema>;
 

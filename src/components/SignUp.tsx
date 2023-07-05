@@ -25,8 +25,6 @@ export default function SignUp() {
     }
   });
 
-  console.log(errors);
-
   async function formSubmit(data: UserSignupForm) {
     
     try {
@@ -34,7 +32,6 @@ export default function SignUp() {
       //by now I will send hashed password if it already passed comparision
       data.confirmpswd = data.password;
 
-      console.log(JSON.stringify(data))
       const response = await fetch("/api/signup", {
         method: "POST",
         body: JSON.stringify(data),
@@ -43,13 +40,12 @@ export default function SignUp() {
         }
       })
       if(!response.ok) {
-        console.log(response);
         throw new Error('HTTP error! status: ' + response.status);
       }
       const responseData = await response.json();
       console.log(responseData);
     } catch(error: any) {
-      console.log(error);
+      throw new Error(error);
     }
     //console.log("typeof response: ")
     //console.log(typeof response);

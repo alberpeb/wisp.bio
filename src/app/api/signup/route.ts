@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
-import prisma from "@/lib/prisma";
+import { NewUser, createUser } from "@/prisma/userOperations";
 import { hash } from '@/lib/hashPass';
 import { InvalidUser, SignupValidationUnion, UserSignup, objectContains, validateUserSignup } from '@/lib/validation';
+
 
 export async function POST(request: NextRequest) {
   try {
@@ -10,20 +11,28 @@ export async function POST(request: NextRequest) {
     if(!userValidated.success)
       return NextResponse.json(
         { error: userValidated.value },
-        { status: 422, headers: { 'content-type': 'application/json' } },
+        { status: 422, headers: { 'content-type': 'application/problem+json' } },
       );
     
-    const userOk: UserSignup = userValidated.value as UserSignup;
+    const userSignup: UserSignup = userValidated.value as UserSignup;
+
     //yes, two times hashed password. this is the most important one, don't delete it
-    userOk.password = await hash(userOk.password);
+    userSignup.password = await hash(userSignup.password);
+    const newUser: NewUser = await createUser(userSignup);
 
-    const createdUser = createUser(userOk);
+    console.log("newUser");
+    console.log(newUser);
 
-    return new NextResponse(JSON.stringify(userValidated), { 
+    //TODO use /login to send credentials and return a new session
+  
+    return new NextResponse(JSON.stringify(newUser), { 
      status: 201, 
      headers: { "Content-Type": "application/json" },
     });
   } catch (error: any) {
+
+    console.log("------------>error: ");
+    console.log(error);
 
     if (error.code === "P2002") {
       const dbError: InvalidUser = {success: false, value: error}
@@ -32,20 +41,9 @@ export async function POST(request: NextRequest) {
           code: "username_email_exist",
           message: 'Username or email already exist' 
           } ] } },
-        { status: 409, headers: { 'content-type': 'application/json' } },
+        { status: 409, headers: { 'content-type': 'application/problem+json' } },
       );
     }
     return new NextResponse(error.message, { status: 500 });
   }
-}
-
-
-async function createUser(userOk: UserSignup) {
-  return await prisma?.user.create({
-    data: {
-      "username": userOk.username,
-      "password": userOk.password,
-      "email": userOk.email,
-    }
-  });
 }
