@@ -1,7 +1,6 @@
 import SignIn from '@/components/SignIn';
 import Link from 'next/link';
 
-
 export default async function page() {
 
   return (

@@ -6,9 +6,11 @@ type ErrorResponse = {
 };
 
 type ErrorResponseBody = {
-  error: {
-    issues?: ErrorResponse[];
-  } | string;
+  error:
+    | {
+        issues?: ErrorResponse[];
+      }
+    | string;
 };
 
 type SuccessResponseBody<T = unknown> = {
@@ -28,7 +30,9 @@ class Response {
   }
 
   static serverError(errorMessage: string): NextResponse {
-    const body: ErrorResponseBody = { error: { issues: [{ code: 'internal_server_error', message: errorMessage }] } };
+    const body: ErrorResponseBody = {
+      error: { issues: [{ code: 'internal_server_error', message: errorMessage }] },
+    };
     const headers = { 'content-type': 'application/problem+json' };
     return NextResponse.json(body, { status: 500, headers });
   }

@@ -11,10 +11,10 @@ import {
 export async function POST(request: NextRequest) {
   try {
     const userValidated: SignupValidationUnion = validateUserSignup(await request.json());
-    if(!userValidated.success) {
+    if (!userValidated.success) {
       return NextResponse.json(
         { error: userValidated.value },
-        { status: 422, headers: { 'content-type': 'application/problem+json' } },
+        { status: 422, headers: { 'content-type': 'application/problem+json' } }
       );
     }
     const userSignup: UserSignup = userValidated.value as UserSignup;
@@ -24,13 +24,12 @@ export async function POST(request: NextRequest) {
     const newUser: UserModel = await createUser(userSignup);
 
     //TODO use /login to send credentials and return a new session
-  
-    return new NextResponse(JSON.stringify(newUser), { 
-     status: 201, 
-     headers: { "Content-Type": "application/json" },
+
+    return new NextResponse(JSON.stringify(newUser), {
+      status: 201,
+      headers: { "Content-Type": "application/json" },
     });
   } catch (error: any) {
-
     console.log("------------>error: ");
     console.log(error);
 
@@ -39,9 +38,9 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         { error: { issues: [ {
           code: "username_email_exist",
-          message: 'Username or email already exist' 
+          message: "Username or email already exist"
           } ] } },
-        { status: 409, headers: { 'content-type': 'application/problem+json' } },
+        { status: 409, headers: { "content-type": "application/problem+json" } },
       );
     }
     return new NextResponse(error.message, { status: 500 });

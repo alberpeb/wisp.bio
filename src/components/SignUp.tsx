@@ -8,13 +8,12 @@ import classNames from 'classnames';
 import Hr from './Hr';
 import { UserSignupForm } from '@/data/models';
 import { UserSignup, userSignupValidationSchema } from '@/lib/validation';
-import { hash } from '@/lib/hashPass';
 
 export default function SignUp() {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm<UserSignup>({
     resolver: zodResolver(userSignupValidationSchema),
     defaultValues: {
@@ -22,11 +21,10 @@ export default function SignUp() {
       email: "",
       password: "",
       confirmpswd: ""
-    }
+    },
   });
 
   async function formSubmit(data: UserSignupForm) {
-    
     try {
       //by now I will send hashed password if it already passed comparision
       data.confirmpswd = data.password;
