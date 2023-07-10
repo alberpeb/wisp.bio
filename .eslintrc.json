@@ -35,8 +35,10 @@
       "plugins": ["@typescript-eslint"],
       "extends": ["plugin:@typescript-eslint/recommended", "plugin:prettier/recommended"],
       "rules": {
+        "prettier/prettier": "warn",
         "react/prop-types": "off",
         "@typescript-eslint/no-unused-vars": "off",
+        "@typescript-eslint/no-inferrable-types": "off",
         "@typescript-eslint/explicit-function-return-type": [
           "off",
           {

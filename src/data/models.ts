@@ -33,3 +33,8 @@ export type UserSignupForm = {
   password: string;
   confirmpswd: string;
 };
+
+export type UserSigninForm = {
+  usernameOrEmail: string;
+  password: string;
+};
