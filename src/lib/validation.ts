@@ -30,42 +30,64 @@ export const userSignupValidationSchema = object({
     path: ["confirmpswd"] 
   });
 
+export const userSigninValidationSchema = object({
+  usernameOrEmail: 
+      string()
+      .toLowerCase()
+      .min(5, "Min. length is 5")
+      .max(40, "Max. length is 40"),
+  password:
+      string().nonempty("Enter your password")
+});
  
-
-export const validateUserSignup = (inputs: UserSignup): SignupValidationUnion => {
-    //return userSignupValidationSchema.parse();
-    const validationResult = userSignupValidationSchema.safeParse(inputs)
-
-    if(!validationResult.success && validationResult.error.issues) {
-        //return { success: false, value: fromZodError(validationResult.error)};
-        return { success: false, value: validationResult.error };
-    }
-    //return new { userSignupValidationSchema : UserSignup;
-    return {success: true, value: inputs};
-};
-
-export const objectContains = (errors: any, term: string): boolean => {
-    return JSON.stringify(errors).includes(term);
-  }
-
 export type UserSignup = zodInfer<typeof userSignupValidationSchema>;
 
+export type UserSignin = zodInfer<typeof userSigninValidationSchema>;
+
 export type ValidUser = {
-    success: boolean;
-    value: UserSignup;
+  success: boolean;
+  value: UserSignup;
 }
 
 export type InvalidUser = {
-    success: boolean;
-    value: string;
+  success: boolean;
+  value: string;
 }
 
 export type SignupValidationUnion =
-  | {
-    success: true;
-    value: UserSignup;
+| {
+  success: true;
+  value: UserSignup;
+}
+| {
+  success: false;
+  value: ZodError;
+}
+
+export type SigninValidationUnion =
+| {
+  success: true;
+  value: UserSignin;
+}
+| {
+  success: false;
+  value: ZodError;
+}
+
+export const validateUserSignup = (inputs: UserSignup): SignupValidationUnion => {
+    const validationResult = userSignupValidationSchema.safeParse(inputs)
+
+    if(!validationResult.success && validationResult.error.issues) {
+        return { success: false, value: validationResult.error };
+    }
+    return {success: true, value: inputs};
+};
+
+export const validateUserSignin = (inputs: UserSignin): SigninValidationUnion => {
+  const validationResult = userSigninValidationSchema.safeParse(inputs)
+
+  if(!validationResult.success && validationResult.error.issues) {
+      return { success: false, value: validationResult.error };
   }
-  | {
-    success: false;
-    value: ZodError;
-  }
+  return {success: true, value: inputs};
+};

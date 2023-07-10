@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { NewUser, createUser } from "@/prisma/userOperations";
+import { UserModel, createUser } from '@/prisma/userService';
 import { hash } from '@/lib/hashPass';
-import { InvalidUser, SignupValidationUnion, UserSignup, objectContains, validateUserSignup } from '@/lib/validation';
+import { InvalidUser, SignupValidationUnion, UserSignup, validateUserSignup } from '@/lib/validation';
 
 
 export async function POST(request: NextRequest) {
@@ -18,10 +18,7 @@ export async function POST(request: NextRequest) {
 
     //yes, two times hashed password. this is the most important one, don't delete it
     userSignup.password = await hash(userSignup.password);
-    const newUser: NewUser = await createUser(userSignup);
-
-    console.log("newUser");
-    console.log(newUser);
+    const newUser: UserModel = await createUser(userSignup);
 
     //TODO use /login to send credentials and return a new session
   

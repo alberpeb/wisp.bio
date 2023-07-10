@@ -8,10 +8,15 @@ export type createUserParams = {
   email: string; 
 }
 
-export interface NewUser extends User{}
+export type getUserByCredentialsParams = {
+  username: string | null;
+  email: string | null; 
+}
+
+export interface UserModel extends User{}
 
 // Create a new user
-export async function createUser(userData: createUserParams): Promise<NewUser> {
+export async function createUser(userData: createUserParams): Promise<UserModel> {
   const user: User = await prisma.user.create({data: {
     "username": userData.username,
     "password": userData.password,
@@ -21,9 +26,31 @@ export async function createUser(userData: createUserParams): Promise<NewUser> {
 }
 
 // Retrieve a user by ID
-export async function getUserById(userId: number): Promise<User | null> {
-  const user = await prisma.user.findUnique({ where: { id: userId } });
-  return user;
+export async function getUserByUsernameOrEmail(userData: getUserByCredentialsParams): Promise<UserModel | null> {
+  const { username, email } = userData;
+
+  let user: User | null = null;
+
+  if(username) {
+    user = await prisma.user.findUnique({
+      where: {
+        username
+      } 
+    });
+  }
+
+  if(email) {
+    user = await prisma.user.findUnique({
+      where: {
+        email
+      } 
+    });
+  }
+
+  if(user) {
+    return user as UserModel;
+  }
+  return null;
 }
 
 // Update a user by ID
