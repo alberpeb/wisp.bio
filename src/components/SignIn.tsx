@@ -4,12 +4,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { signIn } from 'next-auth/react';
 import classNames from 'classnames';
 import Hr from './Hr';
 import { UserSigninForm } from '@/data/models';
 import { UserSignin, userSigninValidationSchema } from '@/lib/validation';
-import { hash } from '@/lib/hashPass';
-import { signIn } from 'next-auth/react';
 
 export default function SignIn() {
   const {
@@ -99,7 +98,7 @@ export default function SignIn() {
             href="/signup"
             className="ml-1 mt-2 text-sm tracking-wide text-slate-700 hover:text-sky-600 dark:text-zinc-400 dark:hover:text-black"
           >
-            Don't have an account?
+            Don&apos;t have an account?
           </Link>
 
           <Hr message="or" />

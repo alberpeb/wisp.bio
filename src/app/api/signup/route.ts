@@ -1,19 +1,22 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server';
 import { UserModel, createUser } from '@/prisma/userService';
 import { hash } from '@/lib/hashPass';
-import { InvalidUser, SignupValidationUnion, UserSignup, validateUserSignup } from '@/lib/validation';
-
+import {
+  InvalidUser,
+  SignupValidationUnion,
+  UserSignup,
+  validateUserSignup,
+} from '@/lib/validation';
 
 export async function POST(request: NextRequest) {
   try {
-    const userValidated: SignupValidationUnion = validateUserSignup( await request.json() );
-    
-    if(!userValidated.success)
+    const userValidated: SignupValidationUnion = validateUserSignup(await request.json());
+    if(!userValidated.success) {
       return NextResponse.json(
         { error: userValidated.value },
         { status: 422, headers: { 'content-type': 'application/problem+json' } },
       );
-    
+    }
     const userSignup: UserSignup = userValidated.value as UserSignup;
 
     //yes, two times hashed password. this is the most important one, don't delete it

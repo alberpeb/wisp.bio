@@ -65,14 +65,16 @@ export default async function UserProfile() {
       <h1 className="mt-1 text-2xl font-bold text-gray-700">{data.name}</h1>
       <h1 className="mb-2 mt-2 text-base font-bold text-gray-400">@{data.username}</h1>
       <h1 className="mb-4 mt-2 flex">
-        {data.professional_qualities.map((quality) => (
-          <div className="mx-1 rounded-full bg-gray-300 px-2 text-gray-100">{quality}</div>
+        {data.professional_qualities.map((quality, i) => (
+          <div key={i} className="mx-1 rounded-full bg-gray-300 px-2 text-gray-100">
+            {quality}
+          </div>
         ))}
       </h1>
 
       <div className="flex flex-row text-gray-700">
         {data.shortLinks.map((social: ShortLink, index) => (
-          <div className={'my-4 ' + (index > 0 ? 'ml-4' : '')}>
+          <div key={index} className={'my-4 ' + (index > 0 ? 'ml-4' : '')}>
             <a
               aria-label={`${social.href} link`}
               key={social.href}
