@@ -7,6 +7,7 @@ import {
   UserSignup,
   validateUserSignup,
 } from '@/lib/validation';
+import Response from '@/lib/response';
 
 export async function POST(request: NextRequest) {
   try {
@@ -19,20 +20,11 @@ export async function POST(request: NextRequest) {
     }
     const userSignup: UserSignup = userValidated.value as UserSignup;
 
-    //yes, two times hashed password. this is the most important one, don't delete it
     userSignup.password = await hash(userSignup.password);
     const newUser: UserModel = await createUser(userSignup);
 
-    //TODO use /login to send credentials and return a new session
-
-    return new NextResponse(JSON.stringify(newUser), {
-      status: 201,
-      headers: { "Content-Type": "application/json" },
-    });
+    return Response.success();
   } catch (error: any) {
-    console.log("------------>error: ");
-    console.log(error);
-
     if (error.code === "P2002") {
       const dbError: InvalidUser = {success: false, value: error}
       return NextResponse.json(

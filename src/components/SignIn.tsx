@@ -1,10 +1,12 @@
 'use client';
 
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import Image from 'next/image';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { signIn } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import classNames from 'classnames';
 import Hr from './Hr';
 import { UserSigninForm } from '@/data/models';
@@ -22,31 +24,30 @@ export default function SignIn() {
       password: "",
     }
   });
+  const {data: session} = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if(session) {
+      router.push("/dashboard");
+    }
+  });
 
   async function formSubmit(data: UserSigninForm) {
     
-    try {
-      /*
-      const response = await fetch("/api/auth", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      })*/
-      const response = await signIn("credentials",{
+    signIn("credentials",{
         usernameOrEmail: data.usernameOrEmail,
         password: data.password, 
         redirect: false
-      });
-      /*if(!response.ok) {
-        throw new Error('HTTP error! status: ' + response.status);
+    }).then(response => {
+      if(response?.error) {
+        throw new Error(response.error);
+      } else {
+        //redirect
       }
-      const responseData = await response.json();*/
-      console.log(response);
-    } catch(error: any) {
+    }).catch((error) => {
       throw new Error(error);
-    }
+    });
   }
 
   return (
