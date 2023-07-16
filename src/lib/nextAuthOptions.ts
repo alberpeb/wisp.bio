@@ -1,29 +1,14 @@
-import { NextAuthOptions } from 'next-auth';
+import { NextAuthOptions, Session } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import { UserModel, getUserByUsernameOrEmail } from '@/prisma/userService';
 import { SigninValidationUnion, UserSignin, validateUserSignin } from './validation';
 import Response from './response';
 import { processUserSignin } from './utils';
-import { UserModel, getUserByUsernameOrEmail } from '@/prisma/userService';
 import { compare } from './hashPass';
 
 if (!process.env.NEXTAUTH_SECRET) {
   throw new Error("Please provide process.env.NEXTAUTH_SECRET");
 }
-
-/*const callbacks = {
-  async jwt(token: any, user: any) {
-    if (user) {
-      token.accessToken = user.data.token
-    }
-    return token
-  },
-
-  async session(session: any, token: any) {
-    session.accessToken = token.accessToken
-    return session
-  }
-}*/
-
 
 export const authOptions: NextAuthOptions = {
   session: {
@@ -56,22 +41,51 @@ export const authOptions: NextAuthOptions = {
             );
 
             if(!userModel) {
-                return Response.error([ {
-                    code: "user_not_found",
-                    message: "User doesn't exist"
-                }])
+                return null;
             }
-            console.log("usuario encontrado")
 
             if(userModel.password && await compare(userSignin.password, userModel.password)) {
-                return Response.success();
+                return {
+                    username: userModel.username,
+                };
             }
+            return null;
         } catch (error: any) {
             return Response.serverError(error.message);
         }
       },
     }),
   ],
+  debug: process.env.NODE_ENV === 'development',
+  callbacks: {
+    async signIn({user}) {
+        if(!user) {
+            return false;
+        }
+        return true;
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        const u = user as unknown as any;
+        return {
+          ...token,
+          id: u.id,
+          username: u.username,
+        };
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: token.id,
+          username: token.username,
+        },
+      };
+    },
+  },
   pages: {
     signIn: "/signin",
   }

@@ -1,9 +1,12 @@
 'use client';
 
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import Image from 'next/image';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { signIn, useSession } from 'next-auth/react';
 import classNames from 'classnames';
 import Hr from './Hr';
 import { UserSignupForm } from '@/data/models';
@@ -23,10 +26,17 @@ export default function SignUp() {
       confirmpswd: ""
     },
   });
+  const {data: session} = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if(session) {
+      router.push("/dashboard");
+    }
+  });
 
   async function formSubmit(data: UserSignupForm) {
     try {
-      //by now I will send hashed password if it already passed comparision
       data.confirmpswd = data.password;
 
       const response = await fetch("/api/signup", {
@@ -39,13 +49,21 @@ export default function SignUp() {
       if(!response.ok) {
         throw new Error('HTTP error! status: ' + response.status);
       }
-      const responseData = await response.json();
-      console.log(responseData);
+      
+      signIn("credentials",{
+        usernameOrEmail: data.username || data.email,
+        password: data.password, 
+        redirect: false
+    }).then(response => {
+      if(response?.error) {
+        throw new Error(response.error);
+      } else {
+        //redirect
+      }
+    })
     } catch(error: any) {
       throw new Error(error);
     }
-    //console.log("typeof response: ")
-    //console.log(typeof response);
   }
 
   return (

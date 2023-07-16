@@ -2,6 +2,7 @@
 const nextConfig = {
   experimental: {
     appDir: true,
+    serverComponentsExternalPackages: ["@prisma/client", "bcryptjs"],
   },
   extends: [
     'plugin:@next/next/recommended',
