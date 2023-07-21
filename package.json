@@ -58,6 +58,10 @@
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.3.0",
     "prisma": "^4.16.1",
-    "storybook": "^7.0.20"
+    "storybook": "^7.0.20",
+    "ts-node": "^10.9.1"
+  },
+  "prisma": {
+    "seed": "ts-node ./prisma/seed.ts"
   }
 }
