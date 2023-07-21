@@ -1,6 +1,6 @@
 import { NextAuthOptions, Session } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { UserModel, getUserByUsernameOrEmail } from '@/prisma/userService';
+import { UserModel, getUserByUsernameOrEmail } from 'prisma/userService';
 import { SigninValidationUnion, UserSignin, validateUserSignin } from './validation';
 import Response from './response';
 import { processUserSignin } from './utils';

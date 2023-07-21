@@ -1,4 +1,10 @@
-import { PrismaClient, User } from '@prisma/client';
+import {
+  PrismaClient,
+  User,
+  MainLink,
+  CustomLink,
+  Category
+} from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -13,7 +19,28 @@ export type getUserByCredentialsParams = {
   email: string | null; 
 }
 
+export interface MainLinkModel extends MainLink{}
+export interface CustomLinkModel extends CustomLink{}
+export interface CategoryModel extends Category{}
+
 export interface UserModel extends User{}
+export interface ProfileModel extends User{
+  customLinks: CustomLinkModel[];
+  mainLinks: MainLinkModel[];
+  categories: CategoryModel[]
+}
+
+export interface CategoriesProps {
+  categories: CategoryModel[]
+}
+
+export interface CustomLinksProps {
+  customLinks: CustomLinkModel[];
+}
+
+export interface MainLinksProps {
+  mainLinks: MainLinkModel[];
+}
 
 // Create a new user
 export async function createUser(userData: createUserParams): Promise<UserModel> {
@@ -49,6 +76,27 @@ export async function getUserByUsernameOrEmail(userData: getUserByCredentialsPar
 
   if(user) {
     return user as UserModel;
+  }
+  return null;
+}
+
+export async function getUserByUsername(username: string): Promise<ProfileModel | null> {
+
+  let user: User | null = null;
+
+  user = await prisma.user.findUnique({
+    include: {
+      mainLinks: true,
+      customLinks: true,
+      categories: true,
+    },
+    where: {
+      username
+    } 
+  });
+
+  if(user) {
+    return user as ProfileModel;
   }
   return null;
 }

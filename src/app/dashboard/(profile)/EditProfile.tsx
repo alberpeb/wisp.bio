@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { ProfileComponentProps } from '@/data/props';
 import AvatarEdit from '@/profilePage/AvatarEdit';
-import ShortLinksEdit from '@/profilePage/ShortLinksEdit';
+import MainLinksEdit from '@/profilePage/MainLinksEdit';
 import CustomLinksEdit from '@/profilePage/CustomLinksEdit';
 
 export default function EditProfile({ profile }: ProfileComponentProps) {
@@ -45,7 +45,7 @@ export default function EditProfile({ profile }: ProfileComponentProps) {
           <input type="text" name="badges" defaultValue={badges} placeholder="Badges" />
         </div>
 
-        <ShortLinksEdit shortLinks={profile.shortLinks} />
+        <MainLinksEdit mainLinks={profile.mainLinks} />
 
         <CustomLinksEdit customLinks={profile.customLinks} />
 

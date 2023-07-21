@@ -2,8 +2,8 @@
   "private": true,
   "scripts": {
     "dev": "dotenv -e .env.development -- next dev",
-    "devDB:migrate": "dotenv -e .env.development -- npx prisma migrate dev --name user-entity --create-only && npx prisma generate",
-    "devDB:push": "dotenv -e .env.development -- npx prisma db push",
+    "dev:DBmigrate": "dotenv -e .env.development -- npx prisma migrate dev --name user-entity --create-only && npx prisma generate",
+    "dev:DBpush": "dotenv -e .env.development -- npx prisma db push",
     "dev:build": "dotenv -e .env.development -- prisma generate && next build",
     "build": "dotenv -e .env.production -- prisma generate && next build",
     "start": "dotenv -e .env.production -- next start",
@@ -58,6 +58,10 @@
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.3.0",
     "prisma": "^4.16.1",
-    "storybook": "^7.0.20"
+    "storybook": "^7.0.20",
+    "ts-node": "^10.9.1"
+  },
+  "prisma": {
+    "seed": "ts-node ./prisma/seed.ts"
   }
 }
