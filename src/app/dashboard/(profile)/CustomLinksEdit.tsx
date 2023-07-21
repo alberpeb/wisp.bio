@@ -34,7 +34,7 @@ export default function CustomLinksEdit({ customLinks }: CustomLinkEditProps) {
               type="text"
               name={'linkTitle' + index}
               defaultValue={customLink.title}
-              placeholder="ShortLink"
+              placeholder="MainLink"
             />
             <input
               type="text"

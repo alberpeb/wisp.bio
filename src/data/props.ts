@@ -1,9 +1,4 @@
-import { Profile, CustomLink, ShortLink } from '@/data/models';
-
-export interface LinkCardComponentProps {
-  key: number;
-  link: CustomLink;
-}
+import { Profile, CustomLink, MainLink } from '@/data/models';
 
 export interface ProfileComponentProps {
   profile: Profile;
@@ -14,8 +9,8 @@ export type AvatarEditProps = {
   name: string;
 };
 
-export type ShortLinkEditProps = {
-  shortLinks: ShortLink[];
+export type MainLinkEditProps = {
+  mainLinks: MainLink[];
 };
 
 export type CustomLinkEditProps = {

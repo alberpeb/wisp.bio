@@ -2,17 +2,17 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { ShortLink } from '@/data/models';
-import { ShortLinkEditProps } from '@/data/props';
+import { MainLink } from '@/data/models';
+import { MainLinkEditProps } from '@/data/props';
 
-export default function ShortLinksEdit({ shortLinks }: ShortLinkEditProps) {
-  const [shortLinksInput, setShortLinksInput] = useState<ShortLink[]>(shortLinks);
+export default function MainLinksEdit({ mainLinks }: MainLinkEditProps) {
+  const [shortLinksInput, setShortLinksInput] = useState<MainLink[]>(mainLinks);
   const router = useRouter();
 
   const handleDeleteCustomLink = (index: number) => {
     const update = shortLinksInput.filter((link, i) => i != index);
     if (update.length == 0) {
-      const emptyCustomLink: ShortLink = { title: '', href: '' };
+      const emptyCustomLink: MainLink = { title: '', href: '' };
       update.push(emptyCustomLink);
     }
     setShortLinksInput(update);

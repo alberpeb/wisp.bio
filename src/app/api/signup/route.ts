@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { UserModel, createUser } from '@/prisma/userService';
+import { UserModel, createUser } from 'prisma/userService';
 import { hash } from '@/lib/hashPass';
 import {
   InvalidUser,
