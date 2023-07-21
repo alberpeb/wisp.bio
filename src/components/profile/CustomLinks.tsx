@@ -3,9 +3,10 @@ import { CustomLinkModel, CustomLinksProps } from "@/prisma/userService";
 export default function CustomLinks({customLinks}: CustomLinksProps) {
     return (
       <section>
-      {customLinks && customLinks.map((link: CustomLinkModel) => 
+      {customLinks && customLinks.map((link: CustomLinkModel, index) => 
         <a
           href={link.url}
+          key={index}
           target="_blank"
           rel="noopener noreferrer"
           className="mb-3 flex w-full max-w-3xl items-center rounded-md bg-gray-100 p-1 transition-all hover:scale-105"
