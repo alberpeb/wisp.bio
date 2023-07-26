@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { UserModel, createUser } from '@/prisma/userService';
+import { UserModel, createUser } from 'prisma/userService';
 import { hash } from '@/lib/hashPass';
 import {
   InvalidUser,
@@ -22,7 +22,6 @@ export async function POST(request: NextRequest) {
 
     userSignup.password = await hash(userSignup.password);
     const newUser: UserModel = await createUser(userSignup);
-
     return Response.success();
   } catch (error: any) {
     if (error.code === "P2002") {

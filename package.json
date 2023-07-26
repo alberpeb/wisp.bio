@@ -1,12 +1,9 @@
 {
   "private": true,
   "scripts": {
-    "dev": "dotenv -e .env.development -- next dev",
-    "devDB:migrate": "dotenv -e .env.development -- npx prisma migrate dev --name user-entity --create-only && npx prisma generate",
-    "devDB:push": "dotenv -e .env.development -- npx prisma db push",
-    "dev:build": "dotenv -e .env.development -- prisma generate && next build",
-    "build": "dotenv -e .env.production -- prisma generate && next build",
-    "start": "dotenv -e .env.production -- next start",
+    "dev": "next dev",
+    "build": "prisma generate && next build",
+    "start": "next start",
     "lint": "next lint",
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc.json",
     "storybook": "storybook dev -p 6006",
@@ -20,10 +17,10 @@
     "@types/node": "20.3.1",
     "@types/react": "18.2.13",
     "@vercel/edge-config": "^0.1.0",
+    "autoprefixer": "^10.4.14",
     "bcryptjs": "^2.4.3",
     "classnames": "^2.3.2",
     "clsx": "^1.2.1",
-    "dotenv-cli": "^7.2.1",
     "next": "^13.4.7",
     "next-auth": "^4.22.1",
     "react": "18.2.0",
@@ -46,7 +43,6 @@
     "@types/bcryptjs": "^2.4.2",
     "@typescript-eslint/eslint-plugin": "^5.59.9",
     "@typescript-eslint/parser": "^5.59.9",
-    "autoprefixer": "^10.4.14",
     "eslint": "^8.42.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-jsx-a11y": "^6.7.1",
@@ -58,6 +54,10 @@
     "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.3.0",
     "prisma": "^4.16.1",
-    "storybook": "^7.0.20"
+    "storybook": "^7.0.20",
+    "ts-node": "^10.9.1"
+  },
+  "prisma": {
+    "seed": "ts-node ./prisma/seed.ts"
   }
 }

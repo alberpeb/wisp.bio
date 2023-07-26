@@ -4,11 +4,11 @@ export interface Profile {
   professional_qualities: string[];
   avatar: string;
   welcome: string;
-  shortLinks: ShortLink[];
+  mainLinks: MainLink[];
   customLinks: CustomLink[];
-  linklogin: ShortLink[];
-  linkloginin: ShortLink[];
-  linksignin: ShortLink[];
+  linklogin: MainLink[];
+  linkloginin: MainLink[];
+  linksignin: MainLink[];
 }
 
 export interface Avatar {
@@ -16,7 +16,7 @@ export interface Avatar {
   avatarURL: string;
 }
 
-export interface ShortLink {
+export interface MainLink {
   title: string;
   href: string;
 }
