@@ -1,4 +1,4 @@
-const bcrypt = require('bcryptjs');
+import bcrypt from 'bcryptjs';
 
 export async function hash(password: string) {
   const saltRounds = 10;
