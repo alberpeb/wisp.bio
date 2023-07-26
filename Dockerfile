@@ -1,8 +1,13 @@
 FROM node:18
 
-WORKDIR /usr/src/app
+WORKDIR /wisp.bio
 
+COPY package*.json ./
+COPY prisma ./prisma/
+COPY .env ./
+COPY tsconfig.json ./
 COPY . .
-RUN npm install --production
-RUN npm run build
-CMD ["npm", "run", "dev"]
+RUN npm install
+RUN npx prisma migrate
+EXPOSE 3000
+CMD [ "npm", "run", "start" ]
