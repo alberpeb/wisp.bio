@@ -1,24 +1,31 @@
-version: '3.1'
+version: '3'
 services:
   db:
     image: mariadb:latest 
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: Password123
-      MYSQL_DATABASE: database
-      MYSQL_PORT: 3306
-    expose:
-      - 3306
+      MARIADB_ROOT_USER: root
+      MARIADB_ROOT_PASSWORD: Password123
+      MARIADB_DATABASE: database
+    networks:
+      - internal
+    ports:
+      - '3306:3306'
+
   app:
-    #stdin_open: true
     build:
       context: .
       dockerfile: Dockerfile
+    environment: 
+      - DATABASE_URL=${DATABASE_URL}
     ports:
-      - 3000:3000
-    network_mode: "host" 
-    env_file:
-      - ./.env.development
+      - '3000:3000'
+    networks:
+      - internal
     depends_on:
-      - db
-    restart: always
+      db:
+        condition: service_started
+    restart: on-failure
+networks:     
+  internal:
+    driver: bridge
